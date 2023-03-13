@@ -1,7 +1,14 @@
+import { Checkout } from 'src/user/checkout/entities/checkout.entity';
 import { Service } from 'src/user/service/entities/service.entity';
 import { UserList } from 'src/user/user-list/entities/user-list.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { OneToMany } from 'typeorm/decorator/relations/OneToMany';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('Booking')
 export class Booking {
@@ -13,4 +20,7 @@ export class Booking {
   UserList: UserList[];
   @OneToMany(() => Service, (Service) => Service.Booking)
   Service: Service[];
+  @OneToOne(() => Checkout, (Checkout) => Checkout.Booking)
+  @JoinColumn()
+  Checkout: Checkout;
 }

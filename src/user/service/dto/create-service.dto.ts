@@ -7,6 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { CreateBookingDto } from 'src/user/booking/dto/create-booking.dto';
+import { CreateFeedBackDto } from 'src/user/feed-back/dto/create-feed-back.dto';
 
 export class CreateServiceDto {
   @IsNotEmpty({ message: 'Id is required' })
@@ -32,4 +33,5 @@ export class CreateServiceDto {
   price: number;
 
   Booking: CreateBookingDto;
+  Feedback: CreateFeedBackDto;
 }
