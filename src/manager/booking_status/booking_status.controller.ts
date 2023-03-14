@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { SessionGuard } from 'src/user/user-list/session.guard';
 import { BookingStatusService } from './booking_status.service';
 import { CreateBookingStatusDto } from './dto/create-booking_status.dto';
-
+@UseGuards(new SessionGuard())
 @Controller('booking-status')
 export class BookingStatusController {
   constructor(private readonly bookingStatusService: BookingStatusService) {}
