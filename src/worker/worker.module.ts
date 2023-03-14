@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { WorkerService } from './worker.service';
-import { WorkerController } from './worker.controller';
+import { WorkerListModule } from './worker-list/worker-list.module';
 
 @Module({
-  controllers: [WorkerController],
-  providers: [WorkerService]
+  controllers: [],
+  providers: [],
+  imports: [WorkerListModule],
 })
 export class WorkerModule {}
