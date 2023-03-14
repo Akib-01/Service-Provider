@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Salary } from 'src/admin/salary/entities/salary.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('worker')
 export class WorkerList {
@@ -16,4 +17,6 @@ export class WorkerList {
   username: string;
   @Column()
   password: string;
+  @ManyToOne(() => Salary, (Salary) => Salary.Worker)
+  Salary: Salary;
 }
