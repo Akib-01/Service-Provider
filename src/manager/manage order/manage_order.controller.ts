@@ -1,6 +1,12 @@
-
-
-import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { SessionGuard } from 'src/user/user-list/session.guard';
 import { CreateBookingStatusDto } from '../booking_status/dto/create-booking_status.dto';
 
@@ -21,8 +27,10 @@ export class ManageOrderController {
   }
 
   @Put('/update/:id')
-  update(@Param('id') id: string, @Body() updateManageOrderDto: CreateBookingStatusDto) {
-
+  update(
+    @Param('id') id: string,
+    @Body() updateManageOrderDto: CreateBookingStatusDto,
+  ) {
     return this.manageOrderService.updateOrder(+id, updateManageOrderDto);
   }
 
