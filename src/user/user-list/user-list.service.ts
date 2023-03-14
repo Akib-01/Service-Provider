@@ -43,7 +43,9 @@ export class UserListService {
   async signup(mydto) {
     const salt = await bcrypt.genSalt();
     const hassedpassed = await bcrypt.hash(mydto.password, salt);
+    const hassedcpassed = await bcrypt.hash(mydto.confirmPassword, salt);
     mydto.password = hassedpassed;
+    mydto.confirmPassword = hassedcpassed;
     return this.UserListRepo.save(mydto);
   }
 

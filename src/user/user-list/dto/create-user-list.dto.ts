@@ -35,7 +35,13 @@ export class CreateUserListDto {
   })
   username: string;
   @IsNotEmpty({ message: 'Password is required' })
-  @Matches('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})')
+  @Matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    {
+      message:
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+    },
+  )
   password: string;
   @IsNotEmpty({ message: 'Confirm Password is required' })
   @Equals('password', { message: 'Passwords do not match' })

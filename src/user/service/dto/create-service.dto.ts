@@ -16,7 +16,7 @@ export class CreateServiceDto {
   ServiceName: string;
   @IsNotEmpty({ message: 'Description is required' })
   @MinLength(2, { message: 'Description should be at least 5 characters' })
-  @MaxLength(10, {
+  @MaxLength(1000, {
     message: 'Description should not be more than 1000 characters',
   })
   description: string;
