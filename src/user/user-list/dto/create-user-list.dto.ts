@@ -40,4 +40,5 @@ export class CreateUserListDto {
   @IsNotEmpty({ message: 'Confirm Password is required' })
   @Equals('password', { message: 'Passwords do not match' })
   confirmPassword: string;
+  filename: string;
 }

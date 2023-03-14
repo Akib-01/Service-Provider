@@ -19,7 +19,7 @@ export class UserList {
   @Column()
   password: string;
   @Column()
-  confirmPassword: string;
+  filename: string;
   @OneToMany(() => Booking, (Booking) => Booking.UserList)
   Booking: Booking[];
 }

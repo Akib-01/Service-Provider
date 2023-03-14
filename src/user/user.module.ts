@@ -1,3 +1,4 @@
+import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { BookingModule } from './booking/booking.module';
 import { CheckoutModule } from './checkout/checkout.module';
@@ -11,6 +12,18 @@ import { UserListModule } from './user-list/user-list.module';
   controllers: [],
   providers: [],
   imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        ignoreTLS: true,
+        secure: true,
+        auth: {
+          user: 'abdullahakib1999@gmail.com',
+          pass: 'ezgoapuislqaqozj',
+        },
+      },
+    }),
     UserListModule,
     BookingModule,
     ServiceModule,

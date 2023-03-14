@@ -6,36 +6,40 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
+  UsePipes,
 } from '@nestjs/common';
+import { ParseIntPipe, ValidationPipe } from '@nestjs/common/pipes';
+import { SessionGuard } from '../user-list/session.guard';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ReportService } from './report.service';
-
+@UseGuards(new SessionGuard())
 @Controller('report')
 export class ReportController {
   constructor(private readonly reportService: ReportService) {}
-
+  @UsePipes(new ValidationPipe())
   @Post('/insert')
   create(@Body() createReportDto: CreateReportDto) {
     return this.reportService.create(createReportDto);
   }
-
+  @UsePipes(new ValidationPipe())
   @Get('/get')
   findAll() {
     return this.reportService.findAll();
   }
-
+  @UsePipes(new ValidationPipe())
   @Get('/get/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.reportService.findOne(+id);
   }
-
+  @UsePipes(new ValidationPipe())
   @Patch('/update/:id')
-  update(@Param('id') id: string, @Body() Dto: CreateReportDto) {
+  update(@Param('id', ParseIntPipe) id: string, @Body() Dto: CreateReportDto) {
     return this.reportService.update(+id, Dto);
   }
-
+  @UsePipes(new ValidationPipe())
   @Delete('/delete/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: string) {
     return this.reportService.remove(+id);
   }
 }

@@ -4,38 +4,46 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
+import { SessionGuard } from '../user-list/session.guard';
 import { CreateFeedBackDto } from './dto/create-feed-back.dto';
 import { FeedBackService } from './feed-back.service';
-
+@UseGuards(new SessionGuard())
 @Controller('feed-back')
 export class FeedBackController {
   constructor(private readonly feedBackService: FeedBackService) {}
-
+  @UsePipes(new ValidationPipe())
   @Post('/insert')
   create(@Body() createFeedBackDto: CreateFeedBackDto) {
     return this.feedBackService.create(createFeedBackDto);
   }
-
+  @UsePipes(new ValidationPipe())
   @Get('/get')
   findAll() {
     return this.feedBackService.findAll();
   }
-
+  @UsePipes(new ValidationPipe())
   @Get('/get/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.feedBackService.findOne(+id);
   }
-
+  @UsePipes(new ValidationPipe())
   @Patch('/update/:id')
-  update(@Param('id') id: string, @Body() Dto: CreateFeedBackDto) {
+  update(
+    @Param('id', ParseIntPipe) id: string,
+    @Body() Dto: CreateFeedBackDto,
+  ) {
     return this.feedBackService.update(+id, Dto);
   }
-
+  @UsePipes(new ValidationPipe())
   @Delete('/delete/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: string) {
     return this.feedBackService.remove(+id);
   }
 }

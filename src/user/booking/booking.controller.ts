@@ -4,38 +4,46 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
+import { SessionGuard } from '../user-list/session.guard';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
-
+@UseGuards(new SessionGuard())
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
-
+  @UsePipes(new ValidationPipe())
   @Post('/insert')
   create(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.create(createBookingDto);
   }
-
+  @UsePipes(new ValidationPipe())
   @Get('/get')
   findAll() {
     return this.bookingService.findAll();
   }
-
+  @UsePipes(new ValidationPipe())
   @Get('get/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.bookingService.findOne(+id);
   }
-
+  @UsePipes(new ValidationPipe())
   @Patch('/update/:id')
-  update(@Param('id') id: string, @Body() updateBookingDto: CreateBookingDto) {
+  update(
+    @Param('id', ParseIntPipe) id: string,
+    @Body() updateBookingDto: CreateBookingDto,
+  ) {
     return this.bookingService.update(+id, updateBookingDto);
   }
-
+  @UsePipes(new ValidationPipe())
   @Delete('/delete/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: string) {
     return this.bookingService.remove(+id);
   }
 }
