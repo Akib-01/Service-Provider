@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Session, UnauthorizedException, UploadedFile, ParseFilePipe, UseInterceptors, MaxFileSizeValidator, FileTypeValidator } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Session, UnauthorizedException, UploadedFile, ParseFilePipe, UseInterceptors, MaxFileSizeValidator, FileTypeValidator, UseGuards, Put } from '@nestjs/common';
 import { ManagerListService } from './manager_list.service';
 import { CreateManagerListDto } from './dto/create-manager_list.dto';
 import { loginDto } from './dto/login.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { SessionGuard } from 'src/user/user-list/session.guard';
 
 @Controller('manager')
 export class ManagerListController {
@@ -13,26 +14,27 @@ export class ManagerListController {
   create(@Body() createManagerListDto: CreateManagerListDto) {
     return this.managerListService.create(createManagerListDto);
   }
-
+  @UseGuards(new SessionGuard())
   @Get('/get') 
   findAll() {
     return this.managerListService.findAll();
   }
-
+  @UseGuards(new SessionGuard())
   @Get('/get/:id')
   findOne(@Param('id') id: string) {
     return this.managerListService.findOne(+id);
   }
-
-  @Patch('/update/:id')
+  @UseGuards(new SessionGuard())
+  @Put('/update/:id')
   update(@Param('id') id: string, @Body() createManagerListDto: CreateManagerListDto) {
     return this.managerListService.update(+id, createManagerListDto);
   }
-
+  @UseGuards(new SessionGuard())
   @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.managerListService.remove(+id);
   }
+  @UseGuards(new SessionGuard())
   @Post('/sendemail')
   sendEmail(@Body() mydata) {
     return this.managerListService.sendEmail(mydata);
