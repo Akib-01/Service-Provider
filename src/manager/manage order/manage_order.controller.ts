@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { CreateBookingStatusDto } from '../booking_status/dto/create-booking_status.dto';
 
 import { ManageOrderService } from './manage_order.service';
@@ -7,7 +7,7 @@ import { ManageOrderService } from './manage_order.service';
 export class ManageOrderController {
   constructor(private readonly manageOrderService: ManageOrderService) {}
 
-  @Get('/get') 
+  @Get('/get')
   findAll() {
     return this.manageOrderService.findOrder();
   }
@@ -18,7 +18,10 @@ export class ManageOrderController {
   }
 
   @Patch('/update/:id')
-  update(@Param('id') id: string, @Body() updateManageOrderDto: CreateBookingStatusDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateManageOrderDto: CreateBookingStatusDto,
+  ) {
     return this.manageOrderService.updateOrder(+id, updateManageOrderDto);
   }
 
@@ -26,6 +29,4 @@ export class ManageOrderController {
   remove(@Param('id') id: string) {
     return this.manageOrderService.removeOrder(+id);
   }
-  
-
 }
