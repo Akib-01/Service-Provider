@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
@@ -33,7 +33,7 @@ export class ReportController {
     return this.reportService.findOne(+id);
   }
   @UsePipes(new ValidationPipe())
-  @Patch('/update/:id')
+  @Put('/update/:id')
   update(@Param('id', ParseIntPipe) id: string, @Body() Dto: CreateReportDto) {
     return this.reportService.update(+id, Dto);
   }

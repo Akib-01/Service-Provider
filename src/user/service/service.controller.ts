@@ -1,13 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { UseGuards, UsePipes } from '@nestjs/common/decorators';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Put, UseGuards, UsePipes } from '@nestjs/common/decorators';
 import { ParseIntPipe, ValidationPipe } from '@nestjs/common/pipes';
 import { SessionGuard } from '../user-list/session.guard';
 import { CreateServiceDto } from './dto/create-service.dto';
@@ -32,7 +24,7 @@ export class ServiceController {
     return this.serviceService.findOne(+id);
   }
   @UsePipes(new ValidationPipe())
-  @Patch('/update/:id')
+  @Put('/update/:id')
   update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateServiceDto: CreateServiceDto,
