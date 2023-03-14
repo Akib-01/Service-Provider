@@ -5,8 +5,8 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
+  Put,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -34,7 +34,7 @@ export class PaymentController {
     return this.paymentService.findOne(+id);
   }
   @UsePipes(new ValidationPipe())
-  @Patch('/update/:id')
+  @Put('/update/:id')
   update(@Param('id', ParseIntPipe) id: string, @Body() Dto: CreatePaymentDto) {
     return this.paymentService.update(+id, Dto);
   }

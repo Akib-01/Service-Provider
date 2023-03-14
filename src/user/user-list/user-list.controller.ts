@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   Session,
   UnauthorizedException,
   UploadedFile,
@@ -49,7 +49,7 @@ export class UserListController {
   }
   @UsePipes(new ValidationPipe())
   @UseGuards(new SessionGuard())
-  @Patch('/update/:id')
+  @Put('/update/:id')
   update(
     @Param('id', ParseIntPipe) id: string,
     @Body() createUserListDto: CreateUserListDto,
