@@ -1,45 +1,89 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { CreateManagerListDto } from './dto/create-manager_list.dto';
-import { UpdateManagerListDto } from './dto/update-manager_list.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Session, UnauthorizedException, UploadedFile, ParseFilePipe, UseInterceptors, MaxFileSizeValidator, FileTypeValidator } from '@nestjs/common';
 import { ManagerListService } from './manager_list.service';
+import { CreateManagerListDto } from './dto/create-manager_list.dto';
+import { loginDto } from './dto/login.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
-@Controller('manager-list')
+@Controller('manager')
 export class ManagerListController {
   constructor(private readonly managerListService: ManagerListService) {}
 
-  @Post()
+  @Post('/insert')
   create(@Body() createManagerListDto: CreateManagerListDto) {
     return this.managerListService.create(createManagerListDto);
   }
 
-  @Get()
+  @Get('/get') 
   findAll() {
     return this.managerListService.findAll();
   }
 
-  @Get(':id')
+  @Get('/get/:id')
   findOne(@Param('id') id: string) {
     return this.managerListService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateManagerListDto: UpdateManagerListDto,
-  ) {
-    return this.managerListService.update(+id, updateManagerListDto);
+  @Patch('/update/:id')
+  update(@Param('id') id: string, @Body() createManagerListDto: CreateManagerListDto) {
+    return this.managerListService.update(+id, createManagerListDto);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.managerListService.remove(+id);
+  }
+  @Post('/sendemail')
+  sendEmail(@Body() mydata) {
+    return this.managerListService.sendEmail(mydata);
+  }
+
+  @Post('/signup')
+  @UseInterceptors(
+    FileInterceptor('myfile', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: function (req, file, cb) {
+          cb(null, Date.now() + file.originalname);
+        },
+      }),
+    }),
+  )
+  signup(
+    @Body() mydto: CreateManagerListDto,
+
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1600000 }),
+          new FileTypeValidator({ fileType: 'png|jpg|jpeg|' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    mydto.filename = file.filename;
+    console.log(file);
+    return this.managerListService.signup(mydto);
+  }
+
+  @Get('/signin')
+  signin(@Session() session, @Body() mydto: loginDto) {
+    if (this.managerListService.signin(mydto)) {
+      session.email = mydto.email;
+
+      console.log(session.email);
+      return { message: 'success' };
+    } else {
+      return { message: 'invalid credentials' };
+    }
+  }
+  @Get('/signout')
+  signout(@Session() session) {
+    if (session.destroy()) {
+      return { message: 'you are logged out' };
+    } else {
+      throw new UnauthorizedException('invalid actions');
+    }
   }
 }

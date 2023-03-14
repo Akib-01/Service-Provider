@@ -1,9 +1,24 @@
 import { Module } from '@nestjs/common';
 import { ManagerListModule } from './manager_list/manager_list.module';
+import { BookingStatusModule } from './booking_status/booking_status.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   controllers: [],
   providers: [],
-  imports: [ManagerListModule],
+  imports: [
+    MailerModule.forRoot({
+    transport: {
+    host: 'smtp.gmail.com',
+    port: 465,
+    ignoreTLS: true,
+    secure: true,
+    auth: {
+    user: 'nazmul.ahammed.nz@gmail.com',
+    pass: 'osadovogrgztbmqc'
+    },
+    }
+    }),
+    ManagerListModule, BookingStatusModule],
 })
 export class ManagerModule {}
