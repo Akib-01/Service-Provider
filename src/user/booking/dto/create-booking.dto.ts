@@ -1,7 +1,4 @@
 import { IsInt, IsNotEmpty } from 'class-validator';
-import { CreateCheckoutDto } from 'src/user/checkout/dto/create-checkout.dto';
-import { CreateServiceDto } from 'src/user/service/dto/create-service.dto';
-import { CreateUserListDto } from 'src/user/user-list/dto/create-user-list.dto';
 
 export class CreateBookingDto {
   @IsNotEmpty({ message: 'Id is required' })
@@ -10,9 +7,9 @@ export class CreateBookingDto {
   @IsNotEmpty({ message: 'Time is required' })
   time: string;
 
-  UserList: CreateUserListDto;
+  UserListId: number;
 
-  Service: CreateServiceDto;
+  ServiceId: number;
 
-  Checkout: CreateCheckoutDto;
+  CheckoutId: number;
 }

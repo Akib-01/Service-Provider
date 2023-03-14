@@ -1,6 +1,7 @@
 import { Booking } from 'src/user/booking/entities/booking.entity';
 import { FeedBack } from 'src/user/feed-back/entities/feed-back.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { OneToMany } from 'typeorm/decorator/relations/OneToMany';
 
 @Entity('Service')
 export class Service {
@@ -16,8 +17,8 @@ export class Service {
   isAvailable: boolean;
   @Column()
   price: number;
-  @ManyToOne(() => Booking, (Booking) => Booking.Service)
-  Booking: Booking;
-  @ManyToOne(() => FeedBack, (FeedBack) => FeedBack.Service)
-  Feedback: FeedBack;
+  @OneToMany(() => Booking, (Booking) => Booking.Service)
+  Booking: Booking[];
+  @OneToMany(() => FeedBack, (FeedBack) => FeedBack.Service)
+  Feedback: FeedBack[];
 }

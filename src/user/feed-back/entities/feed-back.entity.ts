@@ -1,5 +1,5 @@
 import { Service } from 'src/user/service/entities/service.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('FeedBack')
 export class FeedBack {
@@ -9,6 +9,6 @@ export class FeedBack {
   rating: number;
   @Column()
   comment: string;
-  @OneToMany(() => Service, (Service) => Service.Feedback)
+  @ManyToOne(() => Service, (Service) => Service.Feedback)
   Service: Service;
 }

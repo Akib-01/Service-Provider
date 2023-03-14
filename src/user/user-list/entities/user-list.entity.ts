@@ -1,5 +1,6 @@
 import { Booking } from 'src/user/booking/entities/booking.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { OneToMany } from 'typeorm/decorator/relations/OneToMany';
 
 @Entity('User_List')
 export class UserList {
@@ -19,6 +20,6 @@ export class UserList {
   password: string;
   @Column()
   confirmPassword: string;
-  @ManyToOne(() => Booking, (Booking) => Booking.UserList)
-  Booking: Booking;
+  @OneToMany(() => Booking, (Booking) => Booking.UserList)
+  Booking: Booking[];
 }

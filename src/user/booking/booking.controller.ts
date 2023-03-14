@@ -14,27 +14,27 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
-  @Post()
+  @Post('/insert')
   create(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.create(createBookingDto);
   }
 
-  @Get()
+  @Get('/get')
   findAll() {
     return this.bookingService.findAll();
   }
 
-  @Get(':id')
+  @Get('get/:id')
   findOne(@Param('id') id: string) {
     return this.bookingService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('/update/:id')
   update(@Param('id') id: string, @Body() updateBookingDto: CreateBookingDto) {
     return this.bookingService.update(+id, updateBookingDto);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.bookingService.remove(+id);
   }

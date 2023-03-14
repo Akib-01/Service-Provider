@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFeedBackDto } from './dto/create-feed-back.dto';
-import { UpdateFeedBackDto } from './dto/update-feed-back.dto';
+import { FeedBack } from './entities/feed-back.entity';
 
 @Injectable()
 export class FeedBackService {
-  create(createFeedBackDto: CreateFeedBackDto) {
-    return 'This action adds a new feedBack';
+  constructor(
+    @InjectRepository(FeedBack)
+    private feedbackRepo: Repository<FeedBack>,
+  ) {}
+  create(Dto: CreateFeedBackDto) {
+    return this.feedbackRepo.save(Dto);
   }
 
   findAll() {
-    return `This action returns all feedBack`;
+    return this.feedbackRepo.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} feedBack`;
+    return this.feedbackRepo.findOneBy({ id });
   }
 
-  update(id: number, updateFeedBackDto: UpdateFeedBackDto) {
-    return `This action updates a #${id} feedBack`;
+  update(id: number, Dto: CreateFeedBackDto) {
+    return this.feedbackRepo.update(id, Dto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} feedBack`;
+    return this.feedbackRepo.delete(id);
   }
 }

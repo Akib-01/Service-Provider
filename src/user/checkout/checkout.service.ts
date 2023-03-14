@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
-import { UpdateCheckoutDto } from './dto/update-checkout.dto';
+import { Checkout } from './entities/checkout.entity';
 
 @Injectable()
 export class CheckoutService {
-  create(createCheckoutDto: CreateCheckoutDto) {
-    return 'This action adds a new checkout';
+  constructor(
+    @InjectRepository(Checkout)
+    private checkoutRepo: Repository<Checkout>,
+  ) {}
+  create(Dto: CreateCheckoutDto) {
+    return this.checkoutRepo.save(Dto);
   }
 
   findAll() {
-    return `This action returns all checkout`;
+    return this.checkoutRepo.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} checkout`;
+    return this.checkoutRepo.findOneBy({ id });
   }
 
-  update(id: number, updateCheckoutDto: UpdateCheckoutDto) {
-    return `This action updates a #${id} checkout`;
+  update(id: number, Dto: CreateCheckoutDto) {
+    return this.checkoutRepo.update(id, Dto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} checkout`;
+    return this.checkoutRepo.delete(id);
   }
 }

@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { UpdatePaymentDto } from './dto/update-payment.dto';
+
+import { Payment } from './entities/payment.entity';
 
 @Injectable()
 export class PaymentService {
-  create(createPaymentDto: CreatePaymentDto) {
-    return 'This action adds a new payment';
+  constructor(
+    @InjectRepository(Payment)
+    private PaymentRepo: Repository<Payment>,
+  ) {}
+  create(Dto: CreatePaymentDto) {
+    return this.PaymentRepo.save(Dto);
   }
 
   findAll() {
-    return `This action returns all payment`;
+    return this.PaymentRepo.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} payment`;
+    return this.PaymentRepo.findOneBy({ id });
   }
 
-  update(id: number, updatePaymentDto: UpdatePaymentDto) {
-    return `This action updates a #${id} payment`;
+  update(id: number, Dto: CreatePaymentDto) {
+    return this.PaymentRepo.update(id, Dto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} payment`;
+    return this.PaymentRepo.delete(id);
   }
 }

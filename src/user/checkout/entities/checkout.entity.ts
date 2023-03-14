@@ -5,11 +5,11 @@ import {
   Column,
   Entity,
   ManyToOne,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-Entity('Checkout');
+@Entity('Checkout')
 export class Checkout {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,10 +17,10 @@ export class Checkout {
   destination: string;
   @Column()
   time: string;
-  @OneToOne(() => Booking, (Booking) => Booking.Checkout)
+  @ManyToOne(() => Booking, (Booking) => Booking.Checkout)
   Booking: Booking;
-  @ManyToOne(() => Payment, (Payment) => Payment.Checkout)
-  Payment: Payment;
-  @ManyToOne(() => Report, (Report) => Report.Checkout)
-  Report: Report;
+  @OneToMany(() => Payment, (Payment) => Payment.Checkout)
+  Payment: Payment[];
+  @OneToMany(() => Report, (Report) => Report.Checkout)
+  Report: Report[];
 }

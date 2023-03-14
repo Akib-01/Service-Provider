@@ -10,26 +10,26 @@ import {
 import { CreateUserListDto } from './dto/create-user-list.dto';
 import { UserListService } from './user-list.service';
 
-@Controller('user-list')
+@Controller('user')
 export class UserListController {
   constructor(private readonly userListService: UserListService) {}
 
-  @Post()
+  @Post('insert')
   create(@Body() createUserListDto: CreateUserListDto) {
     return this.userListService.create(createUserListDto);
   }
 
-  @Get()
+  @Get('/get')
   findAll() {
     return this.userListService.findAll();
   }
 
-  @Get(':id')
+  @Get('/get/:id')
   findOne(@Param('id') id: string) {
     return this.userListService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('/update/:id')
   update(
     @Param('id') id: string,
     @Body() createUserListDto: CreateUserListDto,
@@ -37,7 +37,7 @@ export class UserListController {
     return this.userListService.update(+id, createUserListDto);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.userListService.remove(+id);
   }

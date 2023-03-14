@@ -9,7 +9,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { CreateBookingDto } from 'src/user/booking/dto/create-booking.dto';
 
 export class CreateUserListDto {
   @IsInt({ message: 'id should be integer' })
@@ -41,5 +40,4 @@ export class CreateUserListDto {
   @IsNotEmpty({ message: 'Confirm Password is required' })
   @Equals('password', { message: 'Passwords do not match' })
   confirmPassword: string;
-  Booking: CreateBookingDto;
 }

@@ -4,9 +4,8 @@ import { UserList } from 'src/user/user-list/entities/user-list.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -16,11 +15,10 @@ export class Booking {
   id: number;
   @Column()
   time: string;
-  @OneToMany(() => UserList, (UserList) => UserList.Booking)
-  UserList: UserList[];
-  @OneToMany(() => Service, (Service) => Service.Booking)
-  Service: Service[];
-  @OneToOne(() => Checkout, (Checkout) => Checkout.Booking)
-  @JoinColumn()
-  Checkout: Checkout;
+  @ManyToOne(() => UserList, (UserList) => UserList.Booking)
+  UserList: UserList;
+  @ManyToOne(() => Service, (Service) => Service.Booking)
+  Service: Service;
+  @OneToMany(() => Checkout, (Checkout) => Checkout.Booking)
+  Checkout: Checkout[];
 }

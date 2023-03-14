@@ -1,5 +1,6 @@
 import { Checkout } from 'src/user/checkout/entities/checkout.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ManyToOne } from 'typeorm/decorator/relations/ManyToOne';
 
 @Entity('Report')
 export class Report {
@@ -10,6 +11,6 @@ export class Report {
   @Column()
   details: string;
 
-  @OneToMany(() => Checkout, (Checkout) => Checkout.Report)
+  @ManyToOne(() => Checkout, (Checkout) => Checkout.Report)
   Checkout: Checkout;
 }
