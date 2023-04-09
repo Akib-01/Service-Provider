@@ -34,8 +34,26 @@ export class CheckoutService {
     return this.checkoutRepo.findOneBy({ id });
   }
 
-  update(id: number, Dto: CreateCheckoutDto) {
-    return this.checkoutRepo.update(id, Dto);
+  async update(
+    id: number,
+    updateCheckoutDto: CreateCheckoutDto,
+  ): Promise<Checkout> {
+    const { destination, time, BookingId } = updateCheckoutDto;
+
+    const booking = await this.bookingRepo.findOne({
+      where: { id: BookingId },
+    });
+
+    const checkout = await this.checkoutRepo.findOne({
+      where: { id },
+      relations: ['Booking'],
+    });
+
+    checkout.destination = destination;
+    checkout.time = time;
+    checkout.Booking = booking;
+
+    return await this.checkoutRepo.save(checkout);
   }
 
   remove(id: number) {

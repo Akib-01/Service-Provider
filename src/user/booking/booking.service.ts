@@ -33,8 +33,10 @@ export class BookingService {
     return await this.bookngRepo.save(booking);
   }
 
-  findAll() {
-    return this.bookngRepo.find();
+  async findAll(): Promise<Booking[]> {
+    return await this.bookngRepo.find({
+      relations: ['UserList', 'Service'],
+    });
   }
 
   findOne(id: number) {

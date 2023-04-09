@@ -6,13 +6,14 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put, UsePipes,
-  ValidationPipe
+  Put,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateFeedBackDto } from './dto/create-feed-back.dto';
 import { FeedBackService } from './feed-back.service';
 
-@Controller('feed-back')
+@Controller('feedback')
 export class FeedBackController {
   constructor(private readonly feedBackService: FeedBackService) {}
   @UsePipes(new ValidationPipe())

@@ -9,7 +9,7 @@ import {
   Put,
   UsePipes,
   // eslint-disable-next-line prettier/prettier
-  ValidationPipe
+  ValidationPipe,
 } from '@nestjs/common';
 import { CheckoutService } from './checkout.service';
 import { CreateCheckoutDto } from './dto/create-checkout.dto';

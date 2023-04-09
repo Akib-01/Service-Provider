@@ -1,16 +1,20 @@
 import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateFeedBackDto {
-  @IsInt({ message: 'Id should be integer' })
+  // Validate that the "id" property is a non-empty integer
+  @IsInt({ message: 'Id should be an integer' })
   @IsNotEmpty({ message: 'Id is required' })
   id: number;
-  @IsInt({ message: 'rating should be integer' })
-  @IsNotEmpty({ message: 'rating is required' })
+
+  // Validate that the "rating" property is a non-empty integer
+  @IsInt({ message: 'Rating should be an integer' })
+  @IsNotEmpty({ message: 'Rating is required' })
   rating: number;
 
-  @IsString({ message: 'comment Should be string' })
-  @IsNotEmpty({ message: 'comment is required' })
+  // Validate that the "comment" property is a non-empty string
+  @IsString({ message: 'Comment should be a string' })
+  @IsNotEmpty({ message: 'Comment is required' })
   comment: string;
 
-  ServiceId: number;
+  serviceId: number;
 }
