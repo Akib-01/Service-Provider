@@ -7,7 +7,8 @@ import {
   IsString,
   Matches,
   MaxLength,
-  MinLength,
+  // eslint-disable-next-line prettier/prettier
+  MinLength
 } from 'class-validator';
 
 export class CreateAdminListDto {

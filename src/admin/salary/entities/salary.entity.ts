@@ -13,7 +13,7 @@ export class Salary {
   @Column()
   bonus: number;
   @OneToMany(() => WorkerList, (Worker) => Worker.Salary)
-  Worker: WorkerList;
+  Worker: WorkerList[];
   @OneToMany(() => ManagerList, (Manager) => Manager.Salary)
-  Manager: ManagerList;
+  Manager: ManagerList[];
 }

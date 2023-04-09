@@ -63,7 +63,6 @@ export class UserListController {
     return this.userListService.remove(+id);
   }
   @UsePipes(new ValidationPipe())
-  @UseGuards(new SessionGuard())
   @Post('/sendemail')
   sendEmail(@Body() mydata) {
     return this.userListService.sendEmail(mydata);

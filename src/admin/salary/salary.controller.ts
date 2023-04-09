@@ -4,10 +4,11 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   UsePipes,
-  ValidationPipe,
+  // eslint-disable-next-line prettier/prettier
+  ValidationPipe
 } from '@nestjs/common';
 import { CreateSalaryDto } from './dto/create-salary.dto';
 import { SalaryService } from './salary.service';
@@ -16,7 +17,6 @@ import { SalaryService } from './salary.service';
 export class SalaryController {
   constructor(private readonly salaryService: SalaryService) {}
 
-  @UsePipes(new ValidationPipe())
   @Post('/insert')
   create(@Body() createSalaryDto: CreateSalaryDto) {
     return this.salaryService.create(createSalaryDto);
@@ -32,7 +32,7 @@ export class SalaryController {
     return this.salaryService.findOne(+id);
   }
   @UsePipes(new ValidationPipe())
-  @Patch('/update/:id')
+  @Put('/update/:id')
   update(@Param('id') id: string, @Body() updateSalaryDto: CreateSalaryDto) {
     return this.salaryService.update(+id, updateSalaryDto);
   }

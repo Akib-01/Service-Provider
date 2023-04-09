@@ -1,10 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Session, UnauthorizedException, UploadedFile, ParseFilePipe, UseInterceptors, MaxFileSizeValidator, FileTypeValidator, UseGuards, Put } from '@nestjs/common';
-import { ManagerListService } from './manager_list.service';
-import { CreateManagerListDto } from './dto/create-manager_list.dto';
-import { loginDto } from './dto/login.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  FileTypeValidator,
+  Get,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  Post,
+  Put,
+  Session,
+  UnauthorizedException,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { SessionGuard } from 'src/user/user-list/session.guard';
+import { CreateManagerListDto } from './dto/create-manager_list.dto';
+import { loginDto } from './dto/login.dto';
+import { ManagerListService } from './manager_list.service';
 
 @Controller('manager')
 export class ManagerListController {
@@ -15,7 +31,7 @@ export class ManagerListController {
     return this.managerListService.create(createManagerListDto);
   }
   @UseGuards(new SessionGuard())
-  @Get('/get') 
+  @Get('/get')
   findAll() {
     return this.managerListService.findAll();
   }
@@ -26,7 +42,10 @@ export class ManagerListController {
   }
   @UseGuards(new SessionGuard())
   @Put('/update/:id')
-  update(@Param('id') id: string, @Body() createManagerListDto: CreateManagerListDto) {
+  update(
+    @Param('id') id: string,
+    @Body() createManagerListDto: CreateManagerListDto,
+  ) {
     return this.managerListService.update(+id, createManagerListDto);
   }
   @UseGuards(new SessionGuard())

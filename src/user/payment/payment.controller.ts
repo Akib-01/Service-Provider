@@ -6,15 +6,12 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put,
-  UseGuards,
-  UsePipes,
-  ValidationPipe,
+  Put, UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
-import { SessionGuard } from '../user-list/session.guard';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentService } from './payment.service';
-@UseGuards(new SessionGuard())
+
 @Controller('payment')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}

@@ -16,7 +16,8 @@ import {
   UseGuards,
   UseInterceptors,
   UsePipes,
-  ValidationPipe,
+  // eslint-disable-next-line prettier/prettier
+  ValidationPipe
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -35,19 +36,18 @@ export class AdminListController {
   }
 
   @UsePipes(new ValidationPipe())
-  @UseGuards(new SessionGuard())
+  //@UseGuards(new SessionGuard())
   @Get('/get')
   findAll() {
     return this.adminListService.findAll();
   }
   @UsePipes(new ValidationPipe())
-  @UseGuards(new SessionGuard())
   @Get('/get/:id')
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.adminListService.findOne(+id);
   }
   @UsePipes(new ValidationPipe())
-  @UseGuards(new SessionGuard())
+  //@UseGuards(new SessionGuard())
   @Patch('/update/:id')
   update(
     @Param('id', ParseIntPipe) id: string,
@@ -56,7 +56,6 @@ export class AdminListController {
     return this.adminListService.update(+id, createUserListDto);
   }
   @UsePipes(new ValidationPipe())
-  @UseGuards(new SessionGuard())
   @Delete('/delete/:id')
   remove(@Param('id', ParseIntPipe) id: string) {
     return this.adminListService.remove(+id);

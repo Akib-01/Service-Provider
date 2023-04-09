@@ -7,14 +7,12 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { SessionGuard } from '../user-list/session.guard';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
-@UseGuards(new SessionGuard())
+
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}

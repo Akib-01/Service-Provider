@@ -4,7 +4,7 @@ import {
   IsNotEmpty,
   IsString,
   MaxLength,
-  MinLength,
+  MinLength
 } from 'class-validator';
 
 export class CreateServiceDto {
@@ -13,7 +13,7 @@ export class CreateServiceDto {
   id: number;
   @IsNotEmpty({ message: 'Service Name is required' })
   @IsString({ message: 'Service Name Should be string' })
-  ServiceName: string;
+  name: string;
   @IsNotEmpty({ message: 'Description is required' })
   @MinLength(2, { message: 'Description should be at least 5 characters' })
   @MaxLength(1000, {

@@ -1,15 +1,10 @@
-import { IsInt, IsNotEmpty } from 'class-validator';
-
 export class CreateBookingDto {
-  @IsNotEmpty({ message: 'Id is required' })
-  @IsInt({ message: 'id should be integer' })
+  //@IsNotEmpty({ message: 'Id is required' })
   id: number;
-  @IsNotEmpty({ message: 'Time is required' })
+  //@IsNotEmpty({ message: 'Time is required' })
   time: string;
 
-  UserListId: number;
+  userListId: number;
 
-  ServiceId: number;
-
-  CheckoutId: number;
+  serviceId: number;
 }

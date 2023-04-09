@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ManagerList } from '../manager_list/entities/manager_list.entity';
-import { BookingStatus } from '../booking_status/entities/booking_status.entity';
 import { CreateBookingStatusDto } from '../booking_status/dto/create-booking_status.dto';
+import { BookingStatus } from '../booking_status/entities/booking_status.entity';
 
 @Injectable()
 export class ManageOrderService {
@@ -11,7 +10,6 @@ export class ManageOrderService {
     @InjectRepository(BookingStatus)
     private BookingStatusRepo: Repository<BookingStatus>,
   ) {}
-  
 
   findOrder() {
     return this.BookingStatusRepo.find();
@@ -28,5 +26,4 @@ export class ManageOrderService {
   removeOrder(id: number) {
     return this.BookingStatusRepo.delete(id);
   }
-  
 }

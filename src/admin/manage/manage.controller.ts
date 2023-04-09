@@ -8,7 +8,8 @@ import {
   Patch,
   Post,
   UsePipes,
-  ValidationPipe,
+  // eslint-disable-next-line prettier/prettier
+  ValidationPipe
 } from '@nestjs/common';
 import { CreateManagerListDto } from 'src/manager/manager_list/dto/create-manager_list.dto';
 import { CreateWorkerListDto } from 'src/worker/worker-list/dto/create-worker-list.dto';
